@@ -1,3 +1,4 @@
+from distutils import extension
 import os
 from traceback import print_tb
 from unittest import result
@@ -25,31 +26,33 @@ def liste_by_extencion(extension):
 
     for item in list:
         if item.split(".")[1] == extension:
-            result = item
+            result.append(item) 
     
-    if result:
-        ...
-    else:    
+    if result == []:
         return "error"
 
     return(result)
 
 
-def download_by_name(name):
+def download_by_name(file:str):
     list = get_list()
 
     existence = False
     for item in list: 
-        if item == name:
+        if item == file:
             existence = True
 
-    if existence:
-        ...
-    else:
+    if not existence:
         return "error"    
 
+    name = file
+    extencion = file.split(".")[1]
 
-    result = get_file_path(name)
+    print(extension)
+    print(name)
+
+
+    result = get_file_path(name, extencion)
 
     return result
 
@@ -67,9 +70,7 @@ def upload_image(files):
     extencion = name.split('.')[1]
 
     is_extencion = checkin_extencion(extencion)
-    if is_extencion:
-        ...
-    else:
+    if not is_extencion:
         return ("not extencion")
 
     if os.path.exists(f'{FILES_DIRECTORY}/{extencion}'):
